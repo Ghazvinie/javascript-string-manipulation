@@ -59,12 +59,13 @@ const LineEndingReplacements = {
   replaceCRLF: (string, newEnding) => string.replace(/\r\n/g, `${newEnding}`)
 };
 
-export let disableConverter = Symbol(crlf-converter-disable);
+let disableConverter = Symbol(crlf-converter-disable);
 
 module.exports = {
   lf,
   cr,
   crlf,
   LineEndings,
-  transformLineEnding
+  transformLineEnding,
+  disableConverter
 };
