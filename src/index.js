@@ -1,5 +1,20 @@
 // Create a tagged template lf`...` that formats text using LF line endings.
-var lf = () => {};
+var lf = (strings, ...values) => {
+  if (values === null || values === undefined){
+    values = '';
+  }else {
+    toString(values);
+  }
+
+
+  return strings.reduce((accumulator, current, index) => {
+
+    transformLineEnding(accumulator, lineEndings.LF);
+
+    return `${accumulator}${current}${values[index]}`;
+
+  },``);
+};
 
 // Create a tagged template cr`...` that formats text using CR line endings.
 var cr = () => {};
@@ -43,6 +58,8 @@ const LineEndingReplacements = {
 
   replaceCRLF: (string, newEnding) => string.replace(/\r\n/g, `${newEnding}`)
 };
+
+export let disableConverter = Symbol(crlf-converter-disable);
 
 module.exports = {
   lf,
