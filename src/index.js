@@ -3,7 +3,7 @@ var lf = (strings, ...values) => {
   return strings.reduce((accumulator, current, index) => {
     const transformedString = transformLineEnding(current, LineEndings.LF);
     
-    let transformedValue = (values[index] !== null ? values[index]: '');  
+    let transformedValue = (values[index] !== null || values[index] !== undefined ?  values[index]: '');  
     
     if (!Object.getOwnPropertySymbols(transformedValue).includes(disableConverter)){
       transformedValue = transformLineEnding(transformedValue, LineEndings.LF)
@@ -18,7 +18,7 @@ var cr = (strings, ...values) => {
   return strings.reduce((accumulator, current, index) => {
     const transformedString = transformLineEnding(current, LineEndings.CR);
     
-    let transformedValue = (values[index] !== null ? values[index]: '');  
+    let transformedValue = (values[index] !== null || values[index] !== undefined ? values[index]: '');  
     
     if (!Object.getOwnPropertySymbols(transformedValue).includes(disableConverter)){
       transformedValue = transformLineEnding(transformedValue, LineEndings.CR)
@@ -33,7 +33,7 @@ var crlf = (strings, ...values) => {
   return strings.reduce((accumulator, current, index) => {
     const transformedString = transformLineEnding(current, LineEndings.CRLF);
     
-    let transformedValue = (values[index] !== null ? values[index]: '');  
+    let transformedValue = (values[index] !== null || values[index] !== undefined ? values[index]: '');  
     
     if (!Object.getOwnPropertySymbols(transformedValue).includes(disableConverter)){
       transformedValue = transformLineEnding(transformedValue, LineEndings.CRLF)
@@ -48,13 +48,13 @@ const transformLineEnding = (string, lineEnding) => {
   string = (string != null ? string.toString() : "");
 
   if (lineEnding === LineEndings.CR) {
-    string = replaceCRLF(string, "\r")
+    string = replaceCRLF(string, "\r");
     string = replaceLF(string, "\r");
   } else if (lineEnding === LineEndings.LF) {
-    string = replaceCRLF(string, "\n")
+    string = replaceCRLF(string, "\n");
     string = replaceCR(string, "\n");
   } else if (lineEnding === LineEndings.CRLF) {
-    string = replaceCR(string, "\r\n")
+    string = replaceCR(string, "\r\n");
     string = replaceLF(string, "\r\n");
   }
   return string;
